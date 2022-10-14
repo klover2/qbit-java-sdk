@@ -80,8 +80,11 @@ System.out.println(res);
 ### 调用其他接口示例
 
 ```java
+// 新增预算
 QbitRequestService service = new QbitRequestService.Builder().config("6f24940c7aa34fcd2d10da6a52f0714b007ab419").build();
 HashMap<String, Object> map = new HashMap<>();
+map.put("name", "预算名");
+map.put("cost", 10);
 String res = service.postRequest("https://api-global.qbitnetwork.com/open-api/v1/budget", map);
 service.close(); // 如果想同时请求多个接口 这个请放在最后关闭
 Map<String, Object> parse = JsonUtil.parse(res);
