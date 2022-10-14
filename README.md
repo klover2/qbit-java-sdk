@@ -40,8 +40,8 @@ implementation 'io.github.klover2:qbit-java-sdk:1.0.0'
 
 ## 名词解释
 
-+ Client 合作伙伴在 Qbit 我们称之为 Client。
-+ Account 合作伙伴的客户在 Qbit 我们称之为 Account
++ Client，合作伙伴在 Qbit 我们称之为 Client。
++ Account， 合作伙伴的客户在 Qbit 我们称之为 Account
 + clientId，商户id，请联系我们申请。
 + clientSecret，商户密钥，用于签名，请联系我们申请。
 
