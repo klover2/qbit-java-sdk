@@ -15,7 +15,7 @@ import static com.qbit.httpclient.util.HmacCryptoUtil.encryptHmacSHA256;
 public class HmacCryptoUtilTest {
 
     @Test
-    public void encryptHmacSHA256Test() throws NoSuchAlgorithmException, InvalidKeyException {
+    public void testEncryptHmacSHA256() throws NoSuchAlgorithmException, InvalidKeyException {
         Map<String, Object> data = new HashMap<>();
         data.put("id", "ee74c872-8173-4b67-81b1-5746e7d5ab88");
         data.put("accountId", null);
