@@ -20,6 +20,9 @@
 
 最新版本已经在 [Maven Central](https://search.maven.org/artifact/io.github.klover2/qbit-java-sdk) 发布。
 
+#### Gradle
+在你的 build.gradle 文件中加入如下的依赖
+
 ```groovy
 implementation 'io.github.klover2:qbit-java-sdk:1.0.0'
 ```
