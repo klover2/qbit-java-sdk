@@ -77,7 +77,9 @@ System.out.println(res);
 QbitRequestService service = new QbitRequestService.Builder().config("6f24940c7aa34fcd2d10da6a52f0714b007ab419").build();
 HashMap<String, Object> map = new HashMap<>();
 String res = service.postRequest("https://api-global.qbitnetwork.com/open-api/v1/budget", map);
-service.close(); // 如果想同时请求多个接口 这个请放在最后关闭Map<String, Object> parse = JsonUtil.parse(res);System.out.println(parse);
+service.close(); // 如果想同时请求多个接口 这个请放在最后关闭
+Map<String, Object> parse = JsonUtil.parse(res);
+System.out.println(parse);
 ```
 
 ## 敏感信息加解密
