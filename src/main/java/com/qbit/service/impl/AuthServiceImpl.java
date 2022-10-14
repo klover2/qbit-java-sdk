@@ -57,7 +57,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public CodeRes getCode(String state, String redirectUri) {
         QbitRequestService service = new QbitRequestService.Builder().config("").build();
-        String uri = this.baseurl + "open-api/oauth/authorize";
+        String uri = this.baseurl + "/open-api/oauth/authorize";
 
         Map<String, String> map = new HashMap<>(1);
         map.put("clientId", clientId);
@@ -80,7 +80,7 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public AccessTokenRes getAccessToken(String code) {
-        String uri = this.baseurl + "open-api/oauth/access-token";
+        String uri = this.baseurl + "/open-api/oauth/access-token";
         QbitRequestService service = new QbitRequestService.Builder().config("").build();
         HashMap<String, Object> map = new HashMap<>(3);
         map.put("clientId", clientId);
@@ -99,7 +99,7 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public RefreshTokenRes refreshToken(String refreshToken) {
-        String uri = this.baseurl + "open-api/oauth/refresh-token";
+        String uri = this.baseurl + "/open-api/oauth/refresh-token";
         QbitRequestService service = new QbitRequestService.Builder().config("").build();
         HashMap<String, Object> map = new HashMap<>(2);
         map.put("clientId", clientId);

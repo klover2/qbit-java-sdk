@@ -57,7 +57,7 @@ implementation 'io.github.klover2:qbit-java-sdk:1.0.0'
 
 ```java
 AuthService service = new AuthService.Builder()
-        .config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com/")
+        .config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com")
         .build();
 
 CodeRes code = service.getCode("123", "https:www.baidu.com");
@@ -71,7 +71,7 @@ System.out.println(accessToken);
 ### 刷新access token
 
 ```java
-AuthService service = new AuthService.Builder().config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com/").build();
+AuthService service = new AuthService.Builder().config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com").build();
 RefreshTokenRes res = service.refreshToken("c7968e9bb72234ca6475b12da4db8c7a2b8108b2240413c24e0f35f00d32c560");
 System.out.println(res);
 // RefreshTokenRes(accessToken=9ce5744a00af89bf0d25f170ebd2a02ce1e88aec, expiresIn=86400, timestamp=1665755613, code=null, message=null)
