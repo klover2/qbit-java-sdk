@@ -50,36 +50,34 @@ implementation 'io.github.klover2:qbit-java-sdk:1.0.0'
 ### 获取access token
 
 ```java
-        AuthService service = new AuthService.Builder()
-                .config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com/")
-                .build();
+AuthService service = new AuthService.Builder()
+        .config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com/")
+        .build();
 
-        CodeRes code = service.getCode("123", "https:www.baidu.com");
-        System.out.println(code);
+CodeRes code = service.getCode("123", "https:www.baidu.com");
+System.out.println(code);
 
-        AccessTokenRes accessToken = service.getAccessToken(code.getCode());
-        System.out.println(accessToken);
-        // AccessTokenRes(accessToken=6f24940c7aa34fcd2d10da6a52f0714b007ab419, refreshToken=c7968e9bb72234ca6475b12da4db8c7a2b8108b2240413c24e0f35f00d32c560, expiresIn=86400, timestamp=1665755612, message=null)
+AccessTokenRes accessToken = service.getAccessToken(code.getCode());
+System.out.println(accessToken);
+// AccessTokenRes(accessToken=6f24940c7aa34fcd2d10da6a52f0714b007ab419, refreshToken=c7968e9bb72234ca6475b12da4db8c7a2b8108b2240413c24e0f35f00d32c560, expiresIn=86400, timestamp=1665755612, message=null)
 ```
 
 ### 刷新access token
 
 ```java
-        AuthService service = new AuthService.Builder().config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com/").build();
-        RefreshTokenRes res = service.refreshToken("c7968e9bb72234ca6475b12da4db8c7a2b8108b2240413c24e0f35f00d32c560");
-        System.out.println(res);
-        // RefreshTokenRes(accessToken=9ce5744a00af89bf0d25f170ebd2a02ce1e88aec, expiresIn=86400, timestamp=1665755613, code=null, message=null)
+AuthService service = new AuthService.Builder().config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com/").build();
+RefreshTokenRes res = service.refreshToken("c7968e9bb72234ca6475b12da4db8c7a2b8108b2240413c24e0f35f00d32c560");
+System.out.println(res);
+// RefreshTokenRes(accessToken=9ce5744a00af89bf0d25f170ebd2a02ce1e88aec, expiresIn=86400, timestamp=1665755613, code=null, message=null)
 ```
 
 ### 调用其他接口示例
 
 ```java
-        QbitRequestService service = new QbitRequestService.Builder().config("6f24940c7aa34fcd2d10da6a52f0714b007ab419").build();
-        HashMap<String, Object> map = new HashMap<>();
-        String res = service.postRequest("https://api-global.qbitnetwork.com/open-api/v1/budget", map);
-        service.close(); // 如果想同时请求多个接口 这个请放在最后关闭
-        Map<String, Object> parse = JsonUtil.parse(res);
-        System.out.println(parse);
+QbitRequestService service = new QbitRequestService.Builder().config("6f24940c7aa34fcd2d10da6a52f0714b007ab419").build();
+HashMap<String, Object> map = new HashMap<>();
+String res = service.postRequest("https://api-global.qbitnetwork.com/open-api/v1/budget", map);
+service.close(); // 如果想同时请求多个接口 这个请放在最后关闭Map<String, Object> parse = JsonUtil.parse(res);System.out.println(parse);
 ```
 
 ## 敏感信息加解密
@@ -87,24 +85,24 @@ implementation 'io.github.klover2:qbit-java-sdk:1.0.0'
 ### 加密-HmacSHA256
 
 ```java
-        Map<String, Object> data = new HashMap<>();
-        data.put("id", "ee74c872-8173-4b67-81b1-5746e7d5ab88");
-        data.put("accountId", null);
-        data.put("holderId", "d2bd6ab3-3c28-4ac7-a7c4-b7eed5eee367");
-        data.put("currency", "USD");
-        data.put("settlementCurrency", null);
-        data.put("counterparty", "SAILINGWOOD;;US;1800948598;;091000019");
-        data.put("transactionAmount", 11);
-        data.put("fee", 0);
-        data.put("businessType", "Inbound");
-        data.put("status", "Closed");
-        data.put("transactionTime", "2021-11-22T07:34:10.997Z");
-        data.put("transactionId", "124d3804-defa-4033-9f30-1d8b0468e506");
-        data.put("clientTransactionId", null);
-        data.put("createTime", "2021-11-22T07:34:10.997Z");
-        data.put("appendFee", 0);
-        String sign = encryptHmacSHA256(data, "25d55ad283aa400af464c76d713c07ad");
-        System.out.printf(String.valueOf(sign == "8287d5539c03918c9de51176162c2bf7065d5a8756b014e3293be1920c20d102"));
+Map<String, Object> data = new HashMap<>();
+data.put("id", "ee74c872-8173-4b67-81b1-5746e7d5ab88");
+data.put("accountId", null);
+data.put("holderId", "d2bd6ab3-3c28-4ac7-a7c4-b7eed5eee367");
+data.put("currency", "USD");
+data.put("settlementCurrency", null);
+data.put("counterparty", "SAILINGWOOD;;US;1800948598;;091000019");
+data.put("transactionAmount", 11);
+data.put("fee", 0);
+data.put("businessType", "Inbound");
+data.put("status", "Closed");
+data.put("transactionTime", "2021-11-22T07:34:10.997Z");
+data.put("transactionId", "124d3804-defa-4033-9f30-1d8b0468e506");
+data.put("clientTransactionId", null);
+data.put("createTime", "2021-11-22T07:34:10.997Z");
+data.put("appendFee", 0);
+String sign = encryptHmacSHA256(data, "25d55ad283aa400af464c76d713c07ad");
+System.out.printf(String.valueOf(sign == "8287d5539c03918c9de51176162c2bf7065d5a8756b014e3293be1920c20d102"));
 ```
 
 ## 联系我们
