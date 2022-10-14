@@ -73,7 +73,7 @@ public class JsonUtil {
 
     public static Map<String, Object> parse(String str) {
         try {
-            return OBJECT_MAPPER.readValue(str, new TypeReference<>() {
+            return OBJECT_MAPPER.readValue(str, new TypeReference<Object>() {
             });
         } catch (IOException e) {
             e.printStackTrace();

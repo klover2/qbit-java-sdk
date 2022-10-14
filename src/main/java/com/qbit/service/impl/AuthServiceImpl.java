@@ -5,6 +5,7 @@ import com.qbit.service.AuthService;
 import com.qbit.service.QbitRequestService;
 import com.qbit.service.dto.AccessTokenRes;
 import com.qbit.service.dto.CodeRes;
+import com.qbit.service.dto.RefreshTokenRes;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -88,5 +89,23 @@ public class AuthServiceImpl implements AuthService {
         String res = service.postRequest(uri, map);
         service.close();
         return JsonUtil.toBean(res, AccessTokenRes.class);
+    }
+
+    /**
+     * 刷新access token
+     *
+     * @param refreshToken 填写通过access-token获取到的refreshToken参数
+     * @return
+     */
+    @Override
+    public RefreshTokenRes refreshToken(String refreshToken) {
+        String uri = this.baseurl + "open-api/oauth/refresh-token";
+        QbitRequestService service = new QbitRequestService.Builder().config("").build();
+        HashMap<String, Object> map = new HashMap<>(2);
+        map.put("clientId", clientId);
+        map.put("refreshToken", refreshToken);
+        String res = service.postRequest(uri, map);
+        service.close();
+        return JsonUtil.toBean(res, RefreshTokenRes.class);
     }
 }

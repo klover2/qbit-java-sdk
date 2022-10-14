@@ -2,6 +2,7 @@ package com.qbit.service;
 
 import com.qbit.service.dto.AccessTokenRes;
 import com.qbit.service.dto.CodeRes;
+import com.qbit.service.dto.RefreshTokenRes;
 import com.qbit.service.impl.AuthServiceImpl;
 
 /**
@@ -75,4 +76,12 @@ public interface AuthService {
      * @return
      */
     AccessTokenRes getAccessToken(String code);
+
+    /**
+     * 刷新access token
+     *
+     * @param refreshToken 填写通过access-token获取到的refreshToken参数
+     * @return
+     */
+    RefreshTokenRes refreshToken(String refreshToken);
 }

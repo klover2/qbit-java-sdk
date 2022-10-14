@@ -9,7 +9,7 @@
     <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>qbit api</name>
-    <description>qbit api</description>
+    <description>qbit bass api 接口支持</description>
     <url>https://github.com/klover2/qbit-java-sdk</url>
 
     <!--  apache 2.0 协议  -->
@@ -29,18 +29,16 @@
     <!-- 开发者信息 -->
     <developers>
         <developer>
-            <name>klover</name>
-            <email>w.klover@foxmail.com</email>
-            <url>https://github.com/klover2</url>
+            <name>Qbit API Team</name>
         </developer>
     </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
-        <java.version>17</java.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <java.version>8</java.version>
 
         <!-- 插件版本 直接拷贝 start -->
         <nexus-staging-maven-plugin.version>1.6.7</nexus-staging-maven-plugin.version>
