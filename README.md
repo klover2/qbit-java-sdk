@@ -107,7 +107,7 @@ data.put("clientTransactionId", null);
 data.put("createTime", "2021-11-22T07:34:10.997Z");
 data.put("appendFee", 0);
 String sign = HmacCryptoUtil.encryptHmacSHA256(data, "25d55ad283aa400af464c76d713c07ad");
-        System.out.println(Objects.equals(sign, "8287d5539c03918c9de51176162c2bf7065d5a8756b014e3293be1920c20d102"));
+System.out.println(Objects.equals(sign, "8287d5539c03918c9de51176162c2bf7065d5a8756b014e3293be1920c20d102"));
 ```
 
 ## 联系我们
