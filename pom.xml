@@ -6,7 +6,7 @@
 
     <groupId>io.github.klover2</groupId>
     <artifactId>qbit-java-sdk</artifactId>
-    <version>0.0.2</version>
+    <version>1.0.0</version>
     <packaging>jar</packaging>
     <name>qbit api</name>
     <description>qbit bass api 接口支持</description>
