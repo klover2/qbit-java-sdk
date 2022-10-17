@@ -219,6 +219,11 @@ public class QbitRequestServiceImpl implements QbitRequestService {
 
             // 构建Get请求对象
             HttpGet req = new HttpGet(uri.toString());
+            // 设置传送的内容类型是json格式
+            req.setHeader(Constant.CONTENT_TYPE, "application/json;charset=utf-8");
+            // 接收的内容类型也是json格式
+            req.setHeader(Constant.X_QBIT_ACCESS_TOKEN, this.accessToken);
+
             // 设置超时时间，其中connectionRequestTimout（从连接池获取连接的超时时间）、connetionTimeout（客户端和服务器建立连接的超时时间）、socketTimeout（客户端从服务器读取数据的超时时间），单位都是毫秒
             RequestConfig config = RequestConfig.custom().setConnectTimeout(10000).setConnectionRequestTimeout(3000)
                     .setSocketTimeout(20000).build();
