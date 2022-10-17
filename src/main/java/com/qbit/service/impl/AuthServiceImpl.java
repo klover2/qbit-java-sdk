@@ -60,7 +60,7 @@ public class AuthServiceImpl implements AuthService {
         QbitRequestService service = new QbitRequestService.Builder().config("").build();
         String uri = this.baseurl + "/open-api/oauth/authorize";
 
-        Map<String, String> map = new HashMap<>(1);
+        Map<String, Object> map = new HashMap<>(1);
         map.put("clientId", clientId);
         if (state != null && state != "") {
             map.put("state", state);
