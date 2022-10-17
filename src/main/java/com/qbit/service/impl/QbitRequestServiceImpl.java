@@ -190,7 +190,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
      */
     @Override
     public String getRequest(String url) {
-        HashMap<String, String> map = new HashMap<>(0);
+        HashMap<String, Object> map = new HashMap<>(0);
         return this.getRequest(url, map);
     }
 
@@ -202,12 +202,12 @@ public class QbitRequestServiceImpl implements QbitRequestService {
      * @return String
      */
     @Override
-    public String getRequest(String url, Map<String, String> query) {
+    public String getRequest(String url, Map<String, Object> query) {
         CloseableHttpResponse response = null;
         try {
             StringBuilder uri = new StringBuilder(url);
             int i = 0;
-            for (Map.Entry<String, String> entry : query.entrySet()) {
+            for (Map.Entry<String, Object> entry : query.entrySet()) {
                 if (i == 0) {
                     uri.append("?");
                 } else {

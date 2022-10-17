@@ -83,7 +83,7 @@ public interface QbitRequestService {
      * @param query 参数
      * @return String
      */
-    String getRequest(String url, Map<String, String> query);
+    String getRequest(String url, Map<String, Object> query);
 
     /**
      * 关闭流请求
