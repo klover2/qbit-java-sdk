@@ -1,8 +1,8 @@
 package com.qbit.service;
 
-import com.qbit.service.dto.AccessTokenRes;
-import com.qbit.service.dto.CodeRes;
-import com.qbit.service.dto.RefreshTokenRes;
+import com.qbit.service.dto.AccessTokenOutput;
+import com.qbit.service.dto.CodeOutput;
+import com.qbit.service.dto.RefreshTokenOutput;
 import com.qbit.service.impl.AuthServiceImpl;
 
 /**
@@ -50,7 +50,7 @@ public interface AuthService {
      *
      * @return
      */
-    CodeRes getCode();
+    CodeOutput getCode();
 
     /**
      * 获取code
@@ -58,7 +58,7 @@ public interface AuthService {
      * @param state 重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节
      * @return
      */
-    CodeRes getCode(String state);
+    CodeOutput getCode(String state);
 
     /**
      * 获取code
@@ -67,7 +67,7 @@ public interface AuthService {
      * @param redirectUri 授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理
      * @return
      */
-    CodeRes getCode(String state, String redirectUri);
+    CodeOutput getCode(String state, String redirectUri);
 
     /**
      * 获取access token
@@ -75,7 +75,7 @@ public interface AuthService {
      * @param code code
      * @return
      */
-    AccessTokenRes getAccessToken(String code);
+    AccessTokenOutput getAccessToken(String code);
 
     /**
      * 刷新access token
@@ -83,5 +83,5 @@ public interface AuthService {
      * @param refreshToken 填写通过access-token获取到的refreshToken参数
      * @return
      */
-    RefreshTokenRes refreshToken(String refreshToken);
+    RefreshTokenOutput refreshToken(String refreshToken);
 }

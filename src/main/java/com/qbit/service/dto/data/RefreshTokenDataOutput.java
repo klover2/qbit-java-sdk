@@ -1,4 +1,4 @@
-package com.qbit.service.dto;
+package com.qbit.service.dto.data;
 
 import lombok.Data;
 
@@ -6,11 +6,11 @@ import java.io.Serializable;
 
 /**
  * @author klover
- * description CodeRes
+ * description RefreshTokenDataOutput
  * date 2022/10/14 13:35
  */
 @Data
-public class RefreshTokenRes implements Serializable {
+public class RefreshTokenDataOutput implements Serializable {
     /**
      * 接口调用凭证
      */
@@ -23,12 +23,4 @@ public class RefreshTokenRes implements Serializable {
      * 接口响应时间戳
      */
     private Integer timestamp;
-    /**
-     * 错误码
-     */
-    private String code;
-    /**
-     * 错误原因
-     */
-    private String message;
 }

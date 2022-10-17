@@ -3,9 +3,10 @@ package com.qbit.service.impl;
 import com.qbit.httpclient.util.JsonUtil;
 import com.qbit.service.AuthService;
 import com.qbit.service.QbitRequestService;
-import com.qbit.service.dto.AccessTokenRes;
-import com.qbit.service.dto.CodeRes;
-import com.qbit.service.dto.RefreshTokenRes;
+import com.qbit.service.dto.AccessTokenOutput;
+import com.qbit.service.dto.CodeOutput;
+import com.qbit.service.dto.Output;
+import com.qbit.service.dto.RefreshTokenOutput;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
-    public CodeRes getCode() {
+    public CodeOutput getCode() {
         return this.getCode(null);
     }
 
@@ -43,7 +44,7 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
-    public CodeRes getCode(String state) {
+    public CodeOutput getCode(String state) {
         return this.getCode(state, null);
     }
 
@@ -55,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
-    public CodeRes getCode(String state, String redirectUri) {
+    public CodeOutput getCode(String state, String redirectUri) {
         QbitRequestService service = new QbitRequestService.Builder().config("").build();
         String uri = this.baseurl + "/open-api/oauth/authorize";
 
@@ -67,9 +68,10 @@ public class AuthServiceImpl implements AuthService {
         if (redirectUri != null && redirectUri != "") {
             map.put("redirectUri", redirectUri);
         }
-        String res = service.getRequest(uri, map);
+
+        Output res = service.getRequest(uri, map);
         service.close();
-        return JsonUtil.toBean(res, CodeRes.class);
+        return (CodeOutput) res;
     }
 
     /**
@@ -79,16 +81,16 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
-    public AccessTokenRes getAccessToken(String code) {
+    public AccessTokenOutput getAccessToken(String code) {
         String uri = this.baseurl + "/open-api/oauth/access-token";
         QbitRequestService service = new QbitRequestService.Builder().config("").build();
         HashMap<String, Object> map = new HashMap<>(3);
         map.put("clientId", clientId);
         map.put("clientSecret", clientSecret);
         map.put("code", code);
-        String res = service.postRequest(uri, map);
+        Output res = service.postRequest(uri, map);
         service.close();
-        return JsonUtil.toBean(res, AccessTokenRes.class);
+        return (AccessTokenOutput) res;
     }
 
     /**
@@ -98,14 +100,14 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
-    public RefreshTokenRes refreshToken(String refreshToken) {
+    public RefreshTokenOutput refreshToken(String refreshToken) {
         String uri = this.baseurl + "/open-api/oauth/refresh-token";
         QbitRequestService service = new QbitRequestService.Builder().config("").build();
         HashMap<String, Object> map = new HashMap<>(2);
         map.put("clientId", clientId);
         map.put("refreshToken", refreshToken);
-        String res = service.postRequest(uri, map);
+        Output res = service.postRequest(uri, map);
         service.close();
-        return JsonUtil.toBean(res, RefreshTokenRes.class);
+        return (RefreshTokenOutput) res;
     }
 }

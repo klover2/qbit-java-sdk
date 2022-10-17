@@ -4,7 +4,10 @@ import com.qbit.httpclient.constant.Constant;
 import com.qbit.httpclient.http.HttpDeleteWithBody;
 import com.qbit.httpclient.util.JsonUtil;
 import com.qbit.service.QbitRequestService;
+import com.qbit.service.dto.ErrOutput;
+import com.qbit.service.dto.Output;
 import org.apache.http.HttpEntity;
+import org.apache.http.StatusLine;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -43,7 +46,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
      * @return String
      */
     @Override
-    public String postRequest(String url, Map<String, Object> params) {
+    public Output postRequest(String url, Map<String, Object> params) {
         CloseableHttpResponse response = null;
         try {
             // 构建Post请求对象
@@ -64,9 +67,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
             req.setEntity(new StringEntity(jsonString, "UTF-8"));
             // 获取返回对象
             response = this.httpClient.execute(req);
-            // 整理返回值
-            HttpEntity entity = response.getEntity();
-            return EntityUtils.toString(entity, "UTF-8");
+            return this.delResponse(response);
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             throw new RuntimeException("出现连接/超时异常");
@@ -92,7 +93,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
      * @return String
      */
     @Override
-    public String putRequest(String url, Map<String, Object> params) {
+    public Output putRequest(String url, Map<String, Object> params) {
         CloseableHttpResponse response = null;
         try {
             // 构建Put请求对象
@@ -113,9 +114,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
             req.setEntity(new StringEntity(jsonString, "UTF-8"));
             // 获取返回对象
             response = this.httpClient.execute(req);
-            // 整理返回值
-            HttpEntity entity = response.getEntity();
-            return EntityUtils.toString(entity, "UTF-8");
+            return this.delResponse(response);
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             throw new RuntimeException("出现连接/超时异常");
@@ -141,7 +140,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
      * @return String
      */
     @Override
-    public String deleteRequest(String url, Map<String, Object> params) {
+    public Output deleteRequest(String url, Map<String, Object> params) {
         CloseableHttpResponse response = null;
         try {
             // 构建Delete请求对象
@@ -162,9 +161,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
             req.setEntity(new StringEntity(jsonString, "UTF-8"));
             // 获取返回对象
             response = this.httpClient.execute(req);
-            // 整理返回值
-            HttpEntity entity = response.getEntity();
-            return EntityUtils.toString(entity, "UTF-8");
+            return this.delResponse(response);
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             throw new RuntimeException("出现连接/超时异常");
@@ -189,7 +186,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
      * @return String
      */
     @Override
-    public String getRequest(String url) {
+    public Output getRequest(String url) {
         HashMap<String, String> map = new HashMap<>(0);
         return this.getRequest(url, map);
     }
@@ -202,7 +199,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
      * @return String
      */
     @Override
-    public String getRequest(String url, Map<String, String> query) {
+    public Output getRequest(String url, Map<String, String> query) {
         CloseableHttpResponse response = null;
         try {
             StringBuilder uri = new StringBuilder(url);
@@ -225,9 +222,7 @@ public class QbitRequestServiceImpl implements QbitRequestService {
             req.setConfig(config);
             // 获取返回对象
             response = this.httpClient.execute(req);
-            // 整理返回值
-            HttpEntity entity = response.getEntity();
-            return EntityUtils.toString(entity, "UTF-8");
+            return this.delResponse(response);
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
             throw new RuntimeException("出现连接/超时异常");
@@ -254,5 +249,29 @@ public class QbitRequestServiceImpl implements QbitRequestService {
             this.httpClient.close();
         } catch (IOException ignored) {
         }
+    }
+
+    /**
+     * 处理返回
+     */
+    private Output delResponse(CloseableHttpResponse response) throws IOException {
+        StatusLine statusLine = response.getStatusLine();
+        int statusCode = statusLine.getStatusCode();
+
+        // 整理返回值
+        HttpEntity entity = response.getEntity();
+        String res = EntityUtils.toString(entity, "UTF-8");
+
+        Object resObj = JsonUtil.toJSONString(res);
+
+        Output output = new Output();
+        output.setStatus(statusCode);
+        // 成功返回
+        if (statusCode >= 200 && statusCode < 300) {
+            output.setData(resObj);
+        } else {
+            output.setErr(JsonUtil.toBean(resObj, ErrOutput.class));
+        }
+        return output;
     }
 }

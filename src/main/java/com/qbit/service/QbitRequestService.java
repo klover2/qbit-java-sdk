@@ -1,6 +1,7 @@
 package com.qbit.service;
 
 import com.qbit.httpclient.QbitHttpClientBuilder;
+import com.qbit.service.dto.Output;
 import com.qbit.service.impl.QbitRequestServiceImpl;
 import org.apache.http.impl.client.CloseableHttpClient;
 
@@ -48,7 +49,8 @@ public interface QbitRequestService {
      * @param params 参数
      * @return String
      */
-    String postRequest(String url, Map<String, Object> params);
+
+    Output postRequest(String url, Map<String, Object> params);
 
     /**
      * put 请求
@@ -57,7 +59,8 @@ public interface QbitRequestService {
      * @param params 参数
      * @return String
      */
-    String putRequest(String url, Map<String, Object> params);
+
+    Output putRequest(String url, Map<String, Object> params);
 
     /**
      * delete 请求
@@ -66,7 +69,8 @@ public interface QbitRequestService {
      * @param params 参数
      * @return String
      */
-    String deleteRequest(String url, Map<String, Object> params);
+
+    Output deleteRequest(String url, Map<String, Object> params);
 
     /**
      * get 请求
@@ -74,7 +78,7 @@ public interface QbitRequestService {
      * @param url url
      * @return String
      */
-    String getRequest(String url);
+    Output getRequest(String url);
 
     /**
      * get 请求
@@ -83,7 +87,7 @@ public interface QbitRequestService {
      * @param query 参数
      * @return String
      */
-    String getRequest(String url, Map<String, String> query);
+    Output getRequest(String url, Map<String, String> query);
 
     /**
      * 关闭流请求
