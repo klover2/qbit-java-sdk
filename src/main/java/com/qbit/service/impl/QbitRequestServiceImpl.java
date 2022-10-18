@@ -267,7 +267,10 @@ public class QbitRequestServiceImpl implements QbitRequestService {
         HttpEntity entity = response.getEntity();
         String res = EntityUtils.toString(entity, "UTF-8");
 
-        Object resObj = JsonUtil.toJSONString(res);
+        Object resObj = JsonUtil.parse(res);
+        if (resObj == null) {
+            resObj = res;
+        }
 
         Output output = new Output();
         output.setStatus(statusCode);

@@ -12,7 +12,8 @@ import java.io.Serializable;
  * date 2022/10/14 13:35
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class CodeOutput extends Output implements Serializable {
+public class CodeOutput implements Serializable {
+    private int status;
     private CodeDataOutput data;
+    private ErrOutput err;
 }

@@ -8,7 +8,7 @@
 
 ## 项目状态
 
-当前版本`1.0.0`为正式版本。暂时支持了auth相关的接口，其他接口带后续完善，同时也提供了Qbit Api 所需的Post、put、delete、get请求，方便使用者更好调用其他接口，具体使用请看下面代码示例。
+当前版本`1.0.1`为正式版本。暂时支持了auth相关的接口，其他接口带后续完善，同时也提供了Qbit Api 所需的Post、put、delete、get请求，方便使用者更好调用其他接口，具体使用请看下面代码示例。
 
 `注意`：请商户的专业技术人员在使用时注意系统和软件的正确性和兼容性，以及带来的风险。
 
@@ -51,15 +51,15 @@ implementation 'io.github.klover2:qbit-java-sdk:1.0.0'
 
 ```java
 AuthService service = new AuthService.Builder()
-        .config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com")
+        .config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "http://127.0.0.1:3000")
         .build();
 
-CodeRes code = service.getCode("123", "https:www.baidu.com");
+CodeOutput res = service.getCode("123", "http://127.0.0.1:3000");
+String code = res.getData().getCode();
 System.out.println(code);
 
-AccessTokenRes accessToken = service.getAccessToken(code.getCode());
-System.out.println(accessToken);
-// AccessTokenRes(accessToken=6f24940c7aa34fcd2d10da6a52f0714b007ab419, refreshToken=c7968e9bb72234ca6475b12da4db8c7a2b8108b2240413c24e0f35f00d32c560, expiresIn=86400, timestamp=1665755612, message=null)
+AccessTokenOutput res1 = service.getAccessToken(code);
+System.out.println(res1.getData().getAccessToken());
 ```
 
 ### 刷新access token
@@ -68,7 +68,6 @@ System.out.println(accessToken);
 AuthService service = new AuthService.Builder().config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "https://api-global.qbitnetwork.com").build();
 RefreshTokenRes res = service.refreshToken("c7968e9bb72234ca6475b12da4db8c7a2b8108b2240413c24e0f35f00d32c560");
 System.out.println(res);
-// RefreshTokenRes(accessToken=9ce5744a00af89bf0d25f170ebd2a02ce1e88aec, expiresIn=86400, timestamp=1665755613, code=null, message=null)
 ```
 
 ### 调用其他接口示例

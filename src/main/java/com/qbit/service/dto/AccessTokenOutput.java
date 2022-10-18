@@ -12,7 +12,8 @@ import java.io.Serializable;
  * date 2022/10/14 14:17
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class AccessTokenOutput extends Output implements Serializable {
+public class AccessTokenOutput implements Serializable {
+    private int status;
     private AccessTokenDataOutput data;
+    private ErrOutput err;
 }

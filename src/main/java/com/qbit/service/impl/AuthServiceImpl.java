@@ -71,7 +71,7 @@ public class AuthServiceImpl implements AuthService {
 
         Output res = service.getRequest(uri, map);
         service.close();
-        return (CodeOutput) res;
+        return JsonUtil.toBean(res, CodeOutput.class);
     }
 
     /**
@@ -90,7 +90,7 @@ public class AuthServiceImpl implements AuthService {
         map.put("code", code);
         Output res = service.postRequest(uri, map);
         service.close();
-        return (AccessTokenOutput) res;
+        return JsonUtil.toBean(res, AccessTokenOutput.class);
     }
 
     /**
@@ -108,6 +108,6 @@ public class AuthServiceImpl implements AuthService {
         map.put("refreshToken", refreshToken);
         Output res = service.postRequest(uri, map);
         service.close();
-        return (RefreshTokenOutput) res;
+        return JsonUtil.toBean(res, RefreshTokenOutput.class);
     }
 }

@@ -12,7 +12,8 @@ import java.io.Serializable;
  * date 2022/10/14 13:35
  */
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class RefreshTokenOutput extends Output implements Serializable {
+public class RefreshTokenOutput implements Serializable {
+    private int status;
     private RefreshTokenDataOutput data;
+    private ErrOutput err;
 }
