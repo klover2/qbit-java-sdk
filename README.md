@@ -80,8 +80,7 @@ map.put("name", "预算名");
 map.put("cost", 10);
 String res = service.postRequest("https://api-global.qbitnetwork.com/open-api/v1/budget", map);
 service.close(); // 如果想同时请求多个接口 这个请放在最后关闭
-Map<String, Object> parse = JsonUtil.parse(res);
-System.out.println(parse);
+System.out.println(res);
 ```
 
 ## 敏感信息加解密
