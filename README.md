@@ -8,7 +8,7 @@
 
 ## 项目状态
 
-当前版本`1.0.1`为正式版本。暂时支持了auth相关的接口，其他接口带后续完善，同时也提供了Qbit Api 所需的Post、put、delete、get请求，方便使用者更好调用其他接口，具体使用请看下面代码示例。
+当前版本`1.1.0`为正式版本。暂时支持了auth相关的接口，其他接口带后续完善，同时也提供了Qbit Api 所需的Post、put、delete、get请求，方便使用者更好调用其他接口，具体使用请看下面代码示例。
 
 `注意`：请商户的专业技术人员在使用时注意系统和软件的正确性和兼容性，以及带来的风险。
 
@@ -54,7 +54,7 @@ AuthService service = new AuthService.Builder()
         .config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "http://127.0.0.1:3000")
         .build();
 
-CodeOutput res = service.getCode("123", "http://127.0.0.1:3000");
+CodeOutput res = service.getCode("123", "http://127.0.0.1:8080");
 String code = res.getData().getCode();
 System.out.println(code);
 

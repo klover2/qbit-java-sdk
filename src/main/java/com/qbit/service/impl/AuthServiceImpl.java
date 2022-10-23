@@ -1,13 +1,18 @@
 package com.qbit.service.impl;
 
+import com.qbit.httpclient.http.HttpRequestsBase;
 import com.qbit.httpclient.util.JsonUtil;
 import com.qbit.service.AuthService;
 import com.qbit.service.QbitRequestService;
-import com.qbit.service.dto.AccessTokenOutput;
-import com.qbit.service.dto.CodeOutput;
-import com.qbit.service.dto.Output;
-import com.qbit.service.dto.RefreshTokenOutput;
+import com.qbit.service.dto.*;
+import com.qbit.service.dto.data.ContentOutput;
+import com.qbit.service.dto.data.ErrOutput;
+import org.apache.http.HttpEntity;
+import org.apache.http.StatusLine;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +38,7 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
-    public CodeOutput getCode() {
+    public CodeOutput getCode() throws Exception {
         return this.getCode(null);
     }
 
@@ -44,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
-    public CodeOutput getCode(String state) {
+    public CodeOutput getCode(String state) throws Exception {
         return this.getCode(state, null);
     }
 
@@ -56,8 +61,8 @@ public class AuthServiceImpl implements AuthService {
      * @return
      */
     @Override
-    public CodeOutput getCode(String state, String redirectUri) {
-        QbitRequestService service = new QbitRequestService.Builder().config("").build();
+    public CodeOutput getCode(String state, String redirectUri) throws Exception {
+        HttpRequestsBase service = new HttpRequestsBase.Builder().config("").build();
         String uri = this.baseurl + "/open-api/oauth/authorize";
 
         Map<String, Object> map = new HashMap<>(1);
@@ -68,10 +73,22 @@ public class AuthServiceImpl implements AuthService {
         if (redirectUri != null && redirectUri != "") {
             map.put("redirectUri", redirectUri);
         }
-
-        Output res = service.getRequest(uri, map);
-        service.close();
-        return JsonUtil.toBean(res, CodeOutput.class);
+        try {
+            ResponseOutput response = service.getRequest(uri, map);
+            int statusCode = response.getStatus();
+            // 整理返回值
+            String res = response.getContent();
+            if (statusCode >= 200 && statusCode < 300) {
+                return JsonUtil.toBean(res, CodeOutput.class);
+            } else {
+                ErrOutput err = JsonUtil.toBean(res, ErrOutput.class);
+                throw new Exception(err.getMessage());
+            }
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            service.close();
+        }
     }
 
     /**
@@ -89,8 +106,7 @@ public class AuthServiceImpl implements AuthService {
         map.put("clientSecret", clientSecret);
         map.put("code", code);
         Output res = service.postRequest(uri, map);
-        service.close();
-        return JsonUtil.toBean(res, AccessTokenOutput.class);
+        return JsonUtil.toBean(res.getContent(), AccessTokenOutput.class);
     }
 
     /**
@@ -107,7 +123,6 @@ public class AuthServiceImpl implements AuthService {
         map.put("clientId", clientId);
         map.put("refreshToken", refreshToken);
         Output res = service.postRequest(uri, map);
-        service.close();
-        return JsonUtil.toBean(res, RefreshTokenOutput.class);
+        return JsonUtil.toBean(res.getContent(), RefreshTokenOutput.class);
     }
 }

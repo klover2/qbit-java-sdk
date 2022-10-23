@@ -9,21 +9,20 @@ import org.junit.jupiter.api.Test;
 public class AuthServiceTest extends TestCase {
 
     @Test
-    public void testGetCode() {
+    public void testGetCode() throws Exception {
         AuthService service = new AuthService.Builder()
-                .config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "http://127.0.0.1:3000")
+                .config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "http:///127.0.0.1:3000")
                 .build();
 
         CodeOutput res = service.getCode("123", "http://127.0.0.1:3000");
-        String code = res.getData().getCode();
-        System.out.println(code);
+        System.out.println(res);
     }
 
     @Test
     public void testGetAccessToken() {
         AuthService service = new AuthService.Builder().config("qbit1f6efee44ceb8ca2", "8f70d42a1393802aebf567be27a47879", "http://127.0.0.1:3000").build();
         AccessTokenOutput res = service.getAccessToken("62e6320e98035f16f91a4c397bb58e20");
-        System.out.println(res.getData().getAccessToken());
+//        System.out.println(res.getData().getAccessToken());
     }
 
     @Test

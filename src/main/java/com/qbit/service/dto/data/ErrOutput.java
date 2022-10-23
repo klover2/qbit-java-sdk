@@ -1,4 +1,4 @@
-package com.qbit.service.dto;
+package com.qbit.service.dto.data;
 
 import lombok.Data;
 
@@ -11,12 +11,6 @@ import java.io.Serializable;
  */
 @Data
 public class ErrOutput implements Serializable {
-    /**
-     * 错误码
-     */
     private Integer code;
-    /**
-     * 错误原因
-     */
     private String message;
 }

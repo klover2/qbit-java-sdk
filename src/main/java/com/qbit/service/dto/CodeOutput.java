@@ -1,8 +1,6 @@
 package com.qbit.service.dto;
 
-import com.qbit.service.dto.data.CodeDataOutput;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -13,7 +11,16 @@ import java.io.Serializable;
  */
 @Data
 public class CodeOutput implements Serializable {
-    private int status;
-    private CodeDataOutput data;
-    private ErrOutput err;
+    /**
+     * 接口响应时间戳
+     */
+    private Integer timestamp;
+    /**
+     * state参数
+     */
+    private String state;
+    /**
+     * code作为换取access token的票据, code只能使用一次, 10分钟未被使用自动过期
+     */
+    private String code;
 }

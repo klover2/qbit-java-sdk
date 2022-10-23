@@ -14,7 +14,6 @@ public class QbitRequestServiceTest extends TestCase {
         HashMap<String, Object> map = new HashMap<>();
         map.put("id", "6e3b3de9-4ffd-4e25-9477-bd1c9d965554");
         Output res = service.getRequest("http://127.0.0.1:3000/open-api/v1/budget", map);
-        service.close(); // 如果想同时请求多个接口 这个请放在最后关闭
         System.out.println(res);
     }
 

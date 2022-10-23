@@ -1,8 +1,6 @@
 package com.qbit.service.dto;
 
-import com.qbit.service.dto.data.RefreshTokenDataOutput;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -13,7 +11,18 @@ import java.io.Serializable;
  */
 @Data
 public class RefreshTokenOutput implements Serializable {
-    private int status;
-    private RefreshTokenDataOutput data;
-    private ErrOutput err;
+    private Integer code;
+    private String message;
+    /**
+     * 接口调用凭证
+     */
+    private String accessToken;
+    /**
+     * 凭证有效时间，单位：秒
+     */
+    private Integer expiresIn;
+    /**
+     * 接口响应时间戳
+     */
+    private Integer timestamp;
 }

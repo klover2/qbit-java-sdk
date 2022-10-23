@@ -17,7 +17,6 @@ public interface QbitRequestService {
      * Service构造器
      */
     class Builder {
-        private CloseableHttpClient httpClient;
         private String accessToken;
 
         /**
@@ -27,7 +26,6 @@ public interface QbitRequestService {
          * @return Builder
          */
         public Builder config(String accessToken) {
-            this.httpClient = QbitHttpClientBuilder.create().build();
             this.accessToken = accessToken;
             return this;
         }
@@ -38,7 +36,7 @@ public interface QbitRequestService {
          * @return QbitService
          */
         public QbitRequestService build() {
-            return new QbitRequestServiceImpl(httpClient, accessToken);
+            return new QbitRequestServiceImpl(accessToken);
         }
     }
 
@@ -88,9 +86,4 @@ public interface QbitRequestService {
      * @return String
      */
     Output getRequest(String url, Map<String, Object> query);
-
-    /**
-     * 关闭流请求
-     */
-    void close();
 }
