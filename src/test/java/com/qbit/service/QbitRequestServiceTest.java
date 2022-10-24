@@ -10,10 +10,12 @@ public class QbitRequestServiceTest extends TestCase {
 
     @Test
     public void testPostRequest() {
-        QbitRequestService service = new QbitRequestService.Builder().config("497e1cc59d9f70cdcfb3deb394ecdca890f3178e").build();
+        QbitRequestService service = new QbitRequestService.Builder().config("0df2034025a919958fcaa0cffc140bab469e4c59").build();
         HashMap<String, Object> map = new HashMap<>();
-        map.put("id", "6e3b3de9-4ffd-4e25-9477-bd1c9d965554");
-        Output res = service.getRequest("http://127.0.0.1:3000/open-api/v1/budget", map);
+        map.put("cardId", "6e3b3de9-4ffd-4e25-9477-bd1c9d965554");
+//        map.put("name", "预算名");
+//        map.put("cost", 10);
+        Output res = service.deleteRequest("http://127.0.0.1:3000/open-api/v1/cards", map);
         System.out.println(res);
     }
 

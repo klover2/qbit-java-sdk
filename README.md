@@ -55,11 +55,11 @@ AuthService service = new AuthService.Builder()
         .build();
 
 CodeOutput res = service.getCode("123", "http://127.0.0.1:8080");
-String code = res.getData().getCode();
+String code = res.getCode();
 System.out.println(code);
 
 AccessTokenOutput res1 = service.getAccessToken(code);
-System.out.println(res1.getData().getAccessToken());
+System.out.println(res1);
 ```
 
 ### 刷新access token
@@ -79,7 +79,6 @@ HashMap<String, Object> map = new HashMap<>();
 map.put("name", "预算名");
 map.put("cost", 10);
 String res = service.postRequest("https://api-global.qbitnetwork.com/open-api/v1/budget", map);
-service.close(); // 如果想同时请求多个接口 这个请放在最后关闭
 System.out.println(res);
 ```
 

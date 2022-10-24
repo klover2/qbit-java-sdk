@@ -99,14 +99,18 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public AccessTokenOutput getAccessToken(String code) {
-        String uri = this.baseurl + "/open-api/oauth/access-token";
-        QbitRequestService service = new QbitRequestService.Builder().config("").build();
-        HashMap<String, Object> map = new HashMap<>(3);
-        map.put("clientId", clientId);
-        map.put("clientSecret", clientSecret);
-        map.put("code", code);
-        Output res = service.postRequest(uri, map);
-        return JsonUtil.toBean(res.getContent(), AccessTokenOutput.class);
+        HttpRequestsBase service = new HttpRequestsBase.Builder().config("").build();
+        try {
+            String uri = this.baseurl + "/open-api/oauth/access-token";
+            HashMap<String, Object> map = new HashMap<>(3);
+            map.put("clientId", clientId);
+            map.put("clientSecret", clientSecret);
+            map.put("code", code);
+            ResponseOutput res = service.postRequest(uri, map);
+            return JsonUtil.toBean(res.getContent(), AccessTokenOutput.class);
+        } finally {
+            service.close();
+        }
     }
 
     /**
@@ -117,12 +121,16 @@ public class AuthServiceImpl implements AuthService {
      */
     @Override
     public RefreshTokenOutput refreshToken(String refreshToken) {
-        String uri = this.baseurl + "/open-api/oauth/refresh-token";
-        QbitRequestService service = new QbitRequestService.Builder().config("").build();
-        HashMap<String, Object> map = new HashMap<>(2);
-        map.put("clientId", clientId);
-        map.put("refreshToken", refreshToken);
-        Output res = service.postRequest(uri, map);
-        return JsonUtil.toBean(res.getContent(), RefreshTokenOutput.class);
+        HttpRequestsBase service = new HttpRequestsBase.Builder().config("").build();
+        try {
+            String uri = this.baseurl + "/open-api/oauth/refresh-token";
+            HashMap<String, Object> map = new HashMap<>(2);
+            map.put("clientId", clientId);
+            map.put("refreshToken", refreshToken);
+            ResponseOutput res = service.postRequest(uri, map);
+            return JsonUtil.toBean(res.getContent(), RefreshTokenOutput.class);
+        } finally {
+            service.close();
+        }
     }
 }

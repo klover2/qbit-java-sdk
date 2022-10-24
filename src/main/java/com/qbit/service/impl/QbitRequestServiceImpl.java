@@ -6,10 +6,6 @@ import com.qbit.service.QbitRequestService;
 import com.qbit.service.dto.Output;
 import com.qbit.service.dto.ResponseOutput;
 import com.qbit.service.dto.data.ContentOutput;
-import org.apache.http.HttpEntity;
-import org.apache.http.StatusLine;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.util.HashMap;
